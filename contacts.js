@@ -35,12 +35,17 @@ function removeContact(contactId) {
       (contact) => contact.id !== contactId
     );
 
+    if (contacts.length === updatedContacts.length) {
+      console.log(`There is no contact with such id: ${contactId}`.blue);
+    } else {
+      console.log(
+        "Contact has just been deleted, contacts list was updated!".red
+      );
+    }
+
     fs.writeFile(contactsPath, JSON.stringify(updatedContacts), (error) => {
       if (error) console.log(error);
     });
-    console.log(
-      "Contact has just been deleted, contacts list was updatted!".red
-    );
     console.table(updatedContacts);
   });
 }
@@ -58,7 +63,7 @@ function addContact(name, email, phone) {
       if (error) console.log(error);
     });
     console.log(
-      "New contact has just been added, contacts list was updatted!".green
+      "New contact has just been added, contacts list was updated!".green
     );
     console.table(updatedContacts);
   });
